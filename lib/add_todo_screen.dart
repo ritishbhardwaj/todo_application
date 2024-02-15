@@ -4,13 +4,18 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_application/constant.dart';
+import 'package:todo_application/todo.dart';
+import 'package:todo_application/todo_provider.dart';
 
-class AddTODoScreen extends StatelessWidget {
-  const AddTODoScreen({super.key});
+class AddTODoScreen extends ConsumerWidget {
+  AddTODoScreen({super.key});
+
+  final todoController=TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Todo"),
@@ -19,6 +24,7 @@ class AddTODoScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            controller: todoController,
               decoration: InputDecoration(
                 hintText: "What Needs to be done?",
               ),
@@ -26,6 +32,7 @@ class AddTODoScreen extends StatelessWidget {
         ),
 
         SizedBox(
+          
           height: 70,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -55,7 +62,18 @@ class AddTODoScreen extends StatelessWidget {
             },
             
             ),
-        )
+        ),
+        ElevatedButton(onPressed: (){
+            final todo = Todo(
+              title: todoController.text,
+              id : DateTime.now().millisecondsSinceEpoch.toString(),
+              isDone:false,
+              priority: 1
+
+            );
+            ref.read(todoProvider.notifier).addTodo(todo);
+            todoController.clear();
+        }, child: Text("AddTodo"))
       ]
       ),
     );

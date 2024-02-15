@@ -17,3 +17,5 @@ class TodoProvider extends StateNotifier<List<Todo>>{
   }
 
 }
+
+final todoProvider = StateNotifierProvider<TodoProvider,List>((ref) => TodoProvider());
