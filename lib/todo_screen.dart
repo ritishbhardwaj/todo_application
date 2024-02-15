@@ -3,6 +3,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:todo_application/add_todo_screen.dart';
 
 class TodoScreen extends StatelessWidget {
   const TodoScreen({super.key});
@@ -15,7 +16,9 @@ class TodoScreen extends StatelessWidget {
       
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){},
+        onPressed:(){
+          Navigator.of(context).push(MaterialPageRoute(builder: (_)=> AddTODoScreen()));
+        },
         child: Icon(Icons.add), ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     ) ;
